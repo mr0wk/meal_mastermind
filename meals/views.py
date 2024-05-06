@@ -1,14 +1,23 @@
 import datetime
-from django.views.generic import ListView, DetailView, UpdateView
+
+from django.urls import reverse
+from django.views.generic import (
+    CreateView,
+    DeleteView,
+    DetailView,
+    ListView,
+    UpdateView,
+)
+
 from .models import Meal
 
 
 class MealListView(ListView):
-    context_object_name = 'meals'
+    context_object_name = "meals"
 
     def get_queryset(self):
         return Meal.objects.all()
-    
+
 
 class MealDetailView(DetailView):
     model = Meal
@@ -16,11 +25,20 @@ class MealDetailView(DetailView):
 
 class MealUpdateView(UpdateView):
     model = Meal
-    fields = ['name', 'meal_type', 'products']
-    template_name_suffix = '_update_form'
-    success_url = '/meals/'
-    
-    def form_valid(self, form):
-        form.instance.updated_at = datetime.datetime.now()
-        return super().form_valid(form)
+    fields = ["name", "meal_type", "products"]
 
+    def get_success_url(self):
+        return reverse("meals:meal_detail", kwargs={"pk": self.object.pk})
+
+
+class MealCreateView(CreateView):
+    model = Meal
+    fields = ["name", "meal_type", "products"]
+
+    def get_success_url(self):
+        return reverse("meals:meal_detail", kwargs={"pk": self.object.pk})
+
+
+class MealDeleteView(DeleteView):
+    model = Meal
+    success_url = "/meals/"
