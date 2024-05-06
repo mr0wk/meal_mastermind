@@ -1,0 +1,11 @@
+{% extends 'meals/base_meals.html' %}
+
+{% block content %}
+    <h1>Confirm Delete</h1>
+    <p>Are you sure you want to delete this meal?</p>
+    <form method="POST" action="{% url 'meals:meal_delete' meal.id %}">
+        {% csrf_token %}
+        <button type="submit">Delete</button>
+        <a href="{% url 'meals:meal_list' %}">Cancel</a>
+    </form>
+{% endblock %}
