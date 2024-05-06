@@ -14,7 +14,6 @@ class Meal(models.Model):
         choices=[(tag.value, tag.value) for tag in MealType],
         default=MealType.BREAKFAST.value,
     )
-    date = models.DateTimeField()
     products = models.ManyToManyField("products.Product", related_name="meals")
 
     def __str__(self):
