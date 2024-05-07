@@ -18,3 +18,8 @@ class Meal(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class MealDate(models.Model):
+    meals = models.ManyToManyField(Meal)
+    date = models.DateField()
