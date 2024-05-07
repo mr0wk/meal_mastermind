@@ -31,6 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    "core.apps.CoreConfig",
     "meals.apps.MealsConfig",
     "products.apps.ProductsConfig",
     "django.contrib.admin",
@@ -56,7 +57,7 @@ ROOT_URLCONF = "meal_mastermind.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [],
+        "DIRS": ["meal_mastermind/templates"],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
