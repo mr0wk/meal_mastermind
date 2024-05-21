@@ -9,8 +9,8 @@ app_name = "planners"
 urlpatterns = [
     path("<date:planner_date>", views.PlannerView.as_view(), name="planner"),
     path(
-        "<date:planner_date>/<str:meal_type>/add/",
+        "<date:planner_date>/<str:meal_type>/update",
         views.update_meal_occurrence_view,
-        name="add_meal",
+        name="update_meal_occurrence",
     ),
 ]

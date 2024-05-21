@@ -1,28 +1,27 @@
 {% extends 'base.html' %}
 
-{% block title %}Planner{% endblock %}
+{% block title %}
+  Planner
+{% endblock %}
 
 {% block content %}
-<h2>Planner</h2>
-<p>Here you can plan your meals for today.</p>
+  <h2>Planner</h2>
+  <p>Here you can plan your meals for today.</p>
 
-{% if meal_occurrences %}
-    {% with 'breakfast lunch dinner snack' as meal_types %}
-        {% for meal_type in meal_types.split %}
-            <h3>{{ meal_type|title }}</h3><a href="{% url 'planners:add_meal' meal_occurrences.first.date meal_type %}">Edit</a>
-            <ul>
-                {% for meal_occurrence in meal_occurrences %}
-                    {% if meal_occurrence.meal_type == meal_type %}
-                        {% for meal in meal_occurrence.meals.all %}
-                            <li>{{ meal.name }}</li>
-                        {% endfor %}
-                    {% endif %}
-                {% endfor %}
-            </ul>
-        {% endfor %}
-    {% endwith %}
-{% else %}
-    <p>No meals planned for today.</p>
-{% endif %}
-
+  {% with meal_types='breakfast lunch dinner snack' %}
+    {% for meal_type in meal_types.split %}
+      <h3>{{ meal_type|title }}</h3><a href="{% url 'planners:update_meal_occurrence' planner_date meal_type %}">Edit</a>
+      <ul>
+        {% if meal_occurrences %}
+          {% for meal_occurrence in meal_occurrences %}
+            {% if meal_occurrence.meal_type == meal_type %}
+              {% for meal in meal_occurrence.meals.all %}
+                <li>{{ meal.name }}</li>
+              {% endfor %}
+            {% endif %}
+          {% endfor %}
+        {% endif %}
+      </ul>
+    {% endfor %}
+  {% endwith %}
 {% endblock %}
